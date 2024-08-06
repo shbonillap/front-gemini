@@ -1,13 +1,24 @@
-// src/Login.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signInWithGoogle } from './firebaseConfig';
 
 const Login = () => {
   const navigate = useNavigate();
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithGoogle();
+      console.log('User Info:', result.user);
+      // Después del inicio de sesión exitoso, redirige al usuario a la página principal
+      navigate('/');
+    } catch (error) {
+      console.error('Error during sign-in:', error);
+    }
+  };
+
   const handleSignIn = (e) => {
     e.preventDefault();
-    //Logica de login esperar a ver como meter el login de google
+    // Lógica de login estándar (si se requiere)
     navigate('/');
   };
 
@@ -17,6 +28,14 @@ const Login = () => {
         <div className="text-center mb-6">
           <h2 className="text-2xl font-semibold">Sign in to HelpStudy</h2>
         </div>
+        <button 
+          onClick={handleGoogleSignIn}
+          className="w-full py-2 px-4 bg-gray-200 hover:bg-gray-300 text-black font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center mb-4"
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-6 h-6 mr-2" />
+          Sign in with Google
+        </button>
+        <div className="text-center text-sm text-gray-500 mb-4">OR</div>
         <form onSubmit={handleSignIn}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Username or email address</label>
