@@ -2,32 +2,32 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Exam = ({ filename }) => {
-  console.log("Realizando examen")
-  if (filename) {
-    const [exercise, setExercise] = useState([]);
+  const [exam, setExam] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
+    if (filename) {
+      console.log("Realizando examen");
+      console.log(filename);
+
       axios
         .get(`http://localhost:3000/exam/${filename}`)
         .then((response) => {
-          setExercise(response.data);
-          localStorage.setItem("exam", response.data)
-          response.data
+          setExam(response.data);
+          localStorage.setItem("exam", response.data);
         })
         .catch((error) => {
           console.log(error);
         });
-    }, []);
+    }
+  }, [filename]);
 
-
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          {exam}
-        </div>
+        {exam}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Exam;
