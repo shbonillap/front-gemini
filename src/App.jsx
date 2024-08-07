@@ -39,8 +39,6 @@ const App = () => {
   const [exercises, setExercises] = useState(false);
   const [exam, setExam] = useState(false);
 
-
-
   return (
     <div className="w-screen h-screen flex">
       {/* Sidebar */}
