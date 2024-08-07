@@ -1,8 +1,46 @@
 // src/App.js
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Axios from "axios";
+import Resume from "./components/resume.jsx";
+import Exercises from "./components/exercises.jsx";
+import Exam from "./components/exam.jsx";
+
+async function uploadFile(setFilename) {
+  const archivo = new FormData();
+  const file = document.querySelector('#file');
+  archivo.append("archivo", file.files[0]);
+  try {
+    const { data } = await Axios.post(
+      "http://localhost:3000/upload", archivo,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+      }
+    );
+    if (data) {
+      console.log(data.archivo.filename);
+      const filename = data.archivo.filename;
+      localStorage.setItem("file", data.archivo.filename)
+      setFilename(filename);
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 const App = () => {
+  const [filename, setFilename] = useState("");
+
+  const [resume, setResume] = useState(false);
+  const [exercises, setExercises] = useState(false);
+  const [exam, setExam] = useState(false);
+
+
+
   return (
     <div className="w-screen h-screen flex">
       {/* Sidebar */}
@@ -18,26 +56,29 @@ const App = () => {
           nuevo tema
         </button>
         <hr className="my-6" />
-        <nav>
-          <ul>
-            <li className="flex items-center mb-4">
-              <span className="mr-2">🏠</span> 
-              <span>Contenido</span>
-            </li>
-            <li className="flex items-center mb-4">
-              <span className="mr-2">📄</span> 
-              <span>Resúmenes</span>
-            </li>
-            <li className="flex items-center mb-4">
-              <span className="mr-2">✏️</span> 
-              <span>Ejercicios</span>
-            </li>
-            <li className="flex items-center mb-4">
-              <span className="mr-2">📝</span> 
-              <span>Tests</span>
-            </li>
-          </ul>
-        </nav>
+        {filename &&
+          <nav disable={filename}>
+            <ul>
+              <li className="flex items-center mb-4">
+                <span className="mr-2">🏠</span>
+                <span>Contenido</span>
+              </li>
+              <li className="flex items-center mb-4">
+                <span className="mr-2">📄</span>
+                <input type='button' onClick={() => setResume(true)} value="Resumen"></input>
+              </li>
+              <li className="flex items-center mb-4">
+                <span className="mr-2">✏️</span>
+                <input type='button' onClick={() => setExercises(true)} value="Ejercicios"></input>
+              </li>
+              <li className="flex items-center mb-4">
+                <span className="mr-2">📝</span>
+                <input type='button' onClick={() => setExam(true)} value="Examen"></input>
+                {/* <span>Tests</span> */}
+              </li>
+            </ul>
+          </nav>
+        }
       </aside>
 
       {/* Main Content Area */}
@@ -51,7 +92,13 @@ const App = () => {
 
         {/* Main Content */}
         <main className="flex-1 p-4">
-          {/* Aquí puedes agregar el contenido principal */}
+          {<form method="POST" encType="multipart/form-data">
+            <input id="file" type="file" name="file" />
+            <input type="button" onClick={() => uploadFile(setFilename)} value="Subir Archivo" />
+          </form>}
+          {resume && <div><br></br><h1>Resumen</h1><Resume filename={filename} /><p>Cargando resumen....</p></div>}
+          {exercises && <div><br></br><h1>Ejercicios</h1><Exercises filename={filename} /><p>Cargando ejercicios....</p></div>}
+          {exam && <div><br></br><h1>Examen</h1><Exam filename={filename} /><p>Cargando ejercicios....</p></div>}
         </main>
       </div>
     </div>
