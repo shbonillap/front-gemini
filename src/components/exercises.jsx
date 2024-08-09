@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 
 const Exercises = ({ filename }) => {
   const [exercise, setExercise] = useState([]);
+  const [getExercise, getsetExercise] = useState(false);
 
   useEffect(() => {
     if (filename) {
@@ -23,9 +24,15 @@ const Exercises = ({ filename }) => {
 
   return (
     <div>
-      <div>
-        {exercise}
-      </div>
+      <button className="w-full py-2 text-red-600 border border-red-600 rounded" onClick={() => getsetExercise(true)}>
+          Ejercicios
+        </button>
+      {getExercise &&
+        <div>
+          <p>Cargando ejercicios...</p>
+          {exercise}
+        </div>
+      }
     </div>
   );
 }

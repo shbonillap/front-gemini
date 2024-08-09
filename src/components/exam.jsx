@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 
 const Exam = ({ filename }) => {
   const [exam, setExam] = useState([]);
+  const [getExam, getsetExam] = useState(false);
+
+
 
   useEffect(() => {
     if (filename) {
@@ -23,7 +26,11 @@ const Exam = ({ filename }) => {
 
   return (
     <div>
+      <button className="w-full py-2 text-red-600 border border-red-600 rounded" onClick={() => getsetExam(true)}>
+          Examen
+        </button>
       <div>
+      <p>Cargando examen...</p>
         {exam}
       </div>
     </div>
