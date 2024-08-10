@@ -1,4 +1,5 @@
 import axios from "axios";
+import MarkdownIt from "markdown-it";
 import React, { useEffect, useState } from "react";
 
 const Exercises = ({ filename }) => {
@@ -13,7 +14,13 @@ const Exercises = ({ filename }) => {
       axios
         .get(`http://localhost:3000/exercisebychapter/${filename}`)
         .then((response) => {
-          setExercise(response.data);
+          const output = document.querySelector(".exercise");
+          const md = new MarkdownIt();
+          const result = md.render(response.data);
+
+          setExercise(result);
+          output.innerHTML = result;
+
           localStorage.setItem("exercisebychapter", response.data);
         })
         .catch((error) => {
@@ -28,9 +35,8 @@ const Exercises = ({ filename }) => {
           Ejercicios
         </button>
       {getExercise &&
-        <div>
+        <div className="exercise">
           <p>Cargando ejercicios...</p>
-          {exercise}
         </div>
       }
     </div>
