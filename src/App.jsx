@@ -210,27 +210,28 @@ const showExam = () => {
       </aside>
 
       <div className="w-8/10 h-screen flex flex-col">
-        <TopBar/>
+  <TopBar/>
 
-        <main className="flex-1 p-4 bg-gray-100">
-          {!filename ? (
-            <div style={{ textAlign: "center", marginTop: "25%" }}>
-              <p style={{ fontSize: "30px" }}>There is nothing to see here.<br />
-                Upload a document to start using HelpStudy</p>
-              <button onClick={handleOpenModal} className="py-2 text-600 text-white semi-rounded bg-customGreen hover:bg-green-800 hover:border-green-950">
-                New document
-              </button>
-            </div>
-          ) : (
-            <div>
-              {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-              {resume && <div><br></br><h1>Resumen</h1><Resume filename={filename} /></div>}
-              {exercises && <div><br></br><h1>Ejercicios</h1><Exercises filename={filename} /><p></p></div>}
-              {exam && <div><br></br><h1>Examen</h1><Exam filename={filename} /><p>Cargando ejercicios....</p></div>}
-            </div>
-          )}
-        </main>
+  <main className="flex-1 p-4 bg-gray-100 overflow-y-auto">
+    {!filename ? (
+      <div style={{ textAlign: "center", marginTop: "25%" }}>
+        <p style={{ fontSize: "30px" }}>There is nothing to see here.<br />
+          Upload a document to start using HelpStudy</p>
+        <button onClick={handleOpenModal} className="py-2 text-600 text-white semi-rounded bg-customGreen hover:bg-green-800 hover:border-green-950">
+          New document
+        </button>
       </div>
+    ) : (
+      <div>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+        {resume && <div><br></br><h1>Resumen</h1><Resume filename={filename} /></div>}
+        {exercises && <div><br></br><h1>Ejercicios</h1><Exercises filename={filename} /><p></p></div>}
+        {exam && <div><br></br><h1>Examen</h1><Exam filename={filename} /><p>Cargando ejercicios....</p></div>}
+      </div>
+    )}
+  </main>
+</div>
+
 
       {/* Modal de "New Document" */}
       <NewDocumentModal 
