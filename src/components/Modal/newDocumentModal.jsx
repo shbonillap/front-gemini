@@ -31,7 +31,7 @@ const NewDocumentModal = ({ isOpen, onClose, uploadFile }) => {
             placeholder="Enter file name..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded mt-2"
+            className="w-full p-2 border rounded mt-2 bg-white"
           />
         </div>
         <div className="mb-4">
@@ -53,7 +53,7 @@ const NewDocumentModal = ({ isOpen, onClose, uploadFile }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            className="hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
             style={{ backgroundColor: '#047857', color: "white", marginTop: "20px"}}
           >
             Submit
