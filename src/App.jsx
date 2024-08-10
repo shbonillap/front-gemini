@@ -7,6 +7,7 @@ import Exam from "./components/exam.jsx";
 import NewDocumentModal from './components/Modal/newDocumentModal.jsx'; // Importar el componente modal
 import logo from './assets/Logo.svg'; // Tell webpack this JS file uses this image
 import TopBar from './components/topBar.jsx';
+import DocumentDropdown from './components/documentDropdown.jsx';
 
 const MAX_FILE_SIZE = 20971520; // 20 MB
 
@@ -88,16 +89,7 @@ const showExam = () => {
     <div className="w-screen h-screen flex">
       <aside className="w-2/10 bg-white p-4">
         <img src={logo} alt="logo" />
-        {localStorage.getItem("file") ? (
-          <p className='mt-4'>{localStorage.getItem("file")}</p>
-        ) : (
-          <div style={{ marginTop: "20px" }}>
-            <svg style={{ float: "left" }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-            </svg>
-            <p style={{ float: "left", marginLeft:"2px" }}>Documents</p>
-          </div>
-        )}
+        <DocumentDropdown/>
         <button
           className="w-full py-2 semi-rounded text-white bg-customGreen hover:bg-green-800 hover:border-green-950 mt-5"
           onClick={handleOpenModal} // Abrir modal al hacer clic
@@ -110,7 +102,7 @@ const showExam = () => {
   <ul>
     <li className="flex items-center mb-4">
       <button
-        className="mr-2 flex items-center w-full p-2 rounded-md bg-white border-gray-200 hover:bg-gray-100 hover:border-gray-500"
+        className="mr-2 flex items-center w-full p-2 rounded-md bg-gray-100 hover:border-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         disabled={!filename}
       >
         <svg
@@ -119,7 +111,7 @@ const showExam = () => {
           width="1em"
           height="1em"
           viewBox="0 0 24 24"
-          className="mr-2 ml-25p"
+          className="mr-2 ml-10p"
         >
           <path
             fill="none"
@@ -135,7 +127,7 @@ const showExam = () => {
     </li>
     <li className="flex items-center mb-4">
       <button
-        className="mr-2 flex items-center w-full p-2 rounded-md bg-white border-gray-200 hover:bg-gray-100 hover:border-gray-500"
+        className="mr-2 flex items-center w-full p-2 rbg-gray-100 bg-gray-100 hover:border-gray-500  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         disabled={!filename}
         onClick={showResume}
       >
@@ -144,7 +136,7 @@ const showExam = () => {
           width="1em"
           height="1em"
           viewBox="0 0 24 24"
-          className="mr-2 ml-25p"
+          className="mr-2 ml-10p"
         >
           <path
             fill="none"
@@ -160,7 +152,7 @@ const showExam = () => {
     </li>
     <li className="flex items-center mb-4">
       <button
-        className="mr-2 flex items-center w-full p-2 rounded-md bg-white border-gray-200 r hover:bg-gray-100 hover:border-gray-500"
+        className="mr-2 flex items-center w-full p-2 bg-gray-100 hover:border-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         disabled={!filename}
         onClick={showExercises}
       >
@@ -169,7 +161,7 @@ const showExam = () => {
           width="1em"
           height="1em"
           viewBox="0 0 24 24"
-          className="mr-2 ml-25p"
+          className="mr-2 ml-10p"
         >
           <path
             fill="none"
@@ -185,7 +177,7 @@ const showExam = () => {
     </li>
     <li className="flex items-center mb-4">
       <button
-        className="mr-2 flex items-center w-full p-2 bg-white border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-500"
+        className="mr-2 flex items-center w-full p-2 bg-gray-100 hover:border-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         disabled={!filename}
         onClick={showExam}
       >
@@ -194,7 +186,7 @@ const showExam = () => {
           width="1em"
           height="1em"
           viewBox="0 0 20 20"
-          className="mr-2 ml-25p"
+          className="mr-2 ml-10p"
         >
           <path
             fill="currentColor"
