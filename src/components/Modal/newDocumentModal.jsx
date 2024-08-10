@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
 
+const MAX_FILE_SIZE = 20971520; // 20 MB
+
 const NewDocumentModal = ({ isOpen, onClose, uploadFile }) => {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
+    setErrorMessage(""); // Resetear mensaje de error al seleccionar un nuevo archivo
   };
 
   const handleSubmit = () => {
-    if (file && title) {
-      uploadFile(file, title); // Pasar el archivo y el nombre personalizado al backend
-      onClose(); // Cerrar el modal después de enviar
+    if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        setErrorMessage('The file is too large. The maximum allowed size is 20 MB.');
+        return;
+      }
+      if (title) {
+        uploadFile(file, title); // Pasar el archivo y el nombre personalizado al backend
+        onClose(); // Cerrar el modal después de enviar
+      } else {
+        setErrorMessage("Please enter a title.");
+    }
     } else {
-      alert("Por favor, completa todos los campos antes de enviar.");
+        setErrorMessage("Please select a file.");
+
+
+
+
+
     }
   };
 
@@ -43,18 +60,21 @@ const NewDocumentModal = ({ isOpen, onClose, uploadFile }) => {
             id="file" // ID para referencia adicional si es necesario
           />
         </div>
+        {errorMessage && (
+          <p className="text-red-500 mb-4">{errorMessage}</p>
+        )}
         <div className="flex justify-end">
-        <button
+          <button
             onClick={onClose}
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded mr-2"
-            style={{ marginTop: "20px"}}
+            style={{ marginTop: "20px" }}
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
             className="hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            style={{ backgroundColor: '#047857', color: "white", marginTop: "20px"}}
+            style={{ backgroundColor: '#047857', color: "white", marginTop: "20px" }}
           >
             Submit
           </button>

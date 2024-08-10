@@ -38,17 +38,17 @@ const Login = () => {
         <div className="text-center text-sm text-gray-500 mb-4">OR</div>
         <form onSubmit={handleSignIn}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Username or email address</label>
+            <label className="block text-sm font-medium  text-gray-700">Username or email address</label>
             <input 
               type="text" 
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+              className="mt-1 w-full px-3 py-2 border bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
             />
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Password</label>
             <input 
               type="password" 
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
+              className="mt-1 w-full px-3 py-2 border bg-white border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" 
             />
             <div className="text-right mt-2">
               <a href="#" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
