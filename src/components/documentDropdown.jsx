@@ -4,6 +4,11 @@ const DocumentDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const filename = localStorage.getItem("file");
 
+  const deleteFileLocal = () =>{
+    localStorage.removeItem("file");
+    setIsOpen(false);
+  }
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -12,6 +17,7 @@ const DocumentDropdown = () => {
     <div className="relative mt-4">
           <button 
             onClick={toggleDropdown} 
+            disabled={!filename}
             className="w-full flex justify-between items-center p-2 bg-white rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
           >
             <div className="flex items-center">
@@ -25,13 +31,28 @@ const DocumentDropdown = () => {
             </svg>
           </button>
           {isOpen && filename && (
-            <div className="mt-2 flex items-center">
-            <div className="mr-4 w-px h-10 bg-gray-300"></div>
-            <div className="w-full p-2 bg-gray-100 rounded-md shadow-md">
-                <p className="truncate">{filename}</p>
-              </div>
-            </div>
-          )}
+  <div className="mt-2 flex items-center">
+    <div className="mr-4 w-px h-10 bg-gray-300"></div>
+    <div className="w-full p-2 bg-gray-100 rounded-md shadow-md flex justify-between items-center">
+      <p className="truncate">{filename}</p>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        className="w-5 h-5 text-red-500 cursor-pointer"
+        onClick={deleteFileLocal}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 18M9 9L9 3M15 9L15 3M4 6H20M5 6H19L16 18H8L5 6z"
+        />
+      </svg>
+    </div>
+  </div>
+)}
         </div>
   );
 };
