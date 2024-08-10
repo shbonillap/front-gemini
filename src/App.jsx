@@ -6,6 +6,7 @@ import Exercises from "./components/exercises.jsx";
 import Exam from "./components/exam.jsx";
 import NewDocumentModal from './components/Modal/newDocumentModal.jsx'; // Importar el componente modal
 import logo from './assets/Logo.svg'; // Tell webpack this JS file uses this image
+import TopBar from './components/topBar.jsx';
 
 const MAX_FILE_SIZE = 20971520; // 20 MB
 
@@ -145,11 +146,7 @@ const App = () => {
       </aside>
 
       <div className="w-8/10 h-screen flex flex-col">
-        <div className="w-full bg-white-100 p-4 flex justify-end">
-          <Link to="/login" className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-3">
-            <span role="img" aria-label="user-icon">👤</span>
-          </Link>
-        </div>
+        <TopBar/>
 
         <main className="flex-1 p-4 bg-gray-100">
           {!filename ? (
