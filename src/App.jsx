@@ -64,13 +64,16 @@ const App = () => {
             <svg style={{ float: "left" }} xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
             </svg>
-            <p style={{ float: "left" }}>Documents</p>
+            <p style={{ float: "left", marginLeft:"2px" }}>Documents</p>
           </div>
 
         }
-        <button style={{ backgroundColor: '#047857', color: "white", marginTop: "20px" }} className="w-full py-2 text-600 semi-rounded">
-          New document
-        </button>
+          <button style={{ backgroundColor: '#047857', color: "white", marginTop: "20px"}} className="w-full py-2 semi-rounded">  
+          <svg style={{ float: "left", marginLeft:"25px" }} xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0a9 9 0 0 1 18 0"/></svg>
+          {/* <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="white" d="M15 12.5h-2.5V15a.5.5 0 0 1-1 0v-2.5H9a.5.5 0 0 1 0-1h2.5V9a.5.5 0 0 1 1 0v2.5H15a.5.5 0 0 1 0 1"/><path fill="white" d="M12 21.932A9.934 9.934 0 1 1 21.932 12A9.944 9.944 0 0 1 12 21.932m0-18.867A8.934 8.934 0 1 0 20.932 12A8.944 8.944 0 0 0 12 3.065"/></svg> */}
+          {/* <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 16 16"><path fill="white" fill-rule="evenodd" d="M13.5 8a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0M8.75 5.5a.75.75 0 0 0-1.5 0v1.75H5.5a.75.75 0 0 0 0 1.5h1.75v1.75a.75.75 0 0 0 1.5 0V8.75h1.75a.75.75 0 0 0 0-1.5H8.75z" clip-rule="evenodd" /></svg> */}
+          <p style={{ marginRight:"25px", font:"Inter", fontSize:"16px"}}>New document</p>
+          </button>
         <hr className="my-6" />
         {!filename ?
           <nav style={{ 'color': "grey" }}>
