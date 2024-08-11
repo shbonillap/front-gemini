@@ -41,9 +41,9 @@ const DocumentDropdown = ({ hideAll }) => {
     <div className="mr-4 w-px h-10 bg-gray-300"></div>
     <div className="mr-2 w-full p-2 bg-gray-100 rounded-md shadow-md flex justify-between items-center">
       <p className="truncate">{filename}</p>
-      <svg class="h-5 w-5 text-red-500 hover:text-red-900"  width="24" height="24" onClick={deleteFileLocal}
-        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" 
-        stroke-linecap="round" stroke-linejoin="round">  
+      <svg className="h-5 w-5 text-red-500 hover:text-red-900"  width="24" height="24" onClick={deleteFileLocal}
+        viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" 
+        strokeLinecap="round" strokeLinejoin="round">  
         <path stroke="none" 
         d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  
         <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  
