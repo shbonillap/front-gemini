@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const DocumentDropdown = ({ hideAll }) => {
+const DocumentDropdown = ({ hideAll, setFilename }) => {
   const [isOpen, setIsOpen] = useState(false);
   const filename = localStorage.getItem("file");
   const navigate = useNavigate();  // Definir el hook de navegación
@@ -10,6 +10,7 @@ const DocumentDropdown = ({ hideAll }) => {
 
   const deleteFileLocal = () =>{
     localStorage.removeItem("file");
+    setFilename("");
     setIsOpen(false);
     hideAll();
 

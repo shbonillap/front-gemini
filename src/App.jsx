@@ -59,7 +59,7 @@ const App = () => {
     if (storedFilename) {
       setFilename(storedFilename);
     }
-  }, []);
+  }, [filename]);
 
 const showResume = () => {
   setResume(true);
@@ -79,21 +79,22 @@ const showExam = () => {
   setExercises(false);
   setExam(true);
 }
-
 const hideAll = () =>{
   setResume(false);
   setExercises(false);
   setExam(false);
 }
-
   const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => {
+    showResume();
+    setIsModalOpen(false)
+  };
 
   return (
     <div className="w-screen h-screen flex">
       <aside className="w-2/10 bg-white p-4">
         <img src={logo} alt="logo" />
-        <DocumentDropdown hideAll={hideAll}/>
+        <DocumentDropdown hideAll={hideAll} setFilename={setFilename}/>
         <button
           className="w-full py-2 semi-rounded text-white bg-customGreen hover:bg-green-800 hover:border-green-950 mt-5"
           onClick={handleOpenModal} // Abrir modal al hacer clic
@@ -104,7 +105,7 @@ const hideAll = () =>{
         <hr className="my-6" />
         <nav className="text-gray-500">
   <ul>
-    <li className="flex items-center mb-4">
+    {/* <li className="flex items-center mb-4">
       <button
         className="mr-2 flex items-center w-full p-2 rounded-md bg-gray-100 hover:border-gray-500 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
         disabled={!filename}
@@ -115,7 +116,7 @@ const hideAll = () =>{
       </svg>
         Overview
       </button>
-    </li>
+    </li> */}
     <li className="flex items-center mb-4">
       <button
         className="mr-2 flex items-center w-full p-2 rbg-gray-100 bg-gray-100 hover:border-gray-500  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
