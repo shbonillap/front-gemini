@@ -177,9 +177,9 @@ const hideAll = () =>{
     ) : (
       <div>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        {resume && <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Summary</p><hr></hr><Resume filename={filename} /></div>}
-        {exercises && <div><br></br><h3>Ejercicios</h3><Exercises filename={filename} /><p></p></div>}
-        {exam && <div><br></br><h1>Examen</h1><Exam filename={filename} /><p>Cargando ejercicios....</p></div>}
+        {resume && <Resume filename={filename} />}
+        {exercises && <Exercises filename={filename} />}
+        {exam && <Exam filename={filename} />}
       </div>
     )}
   </main>
