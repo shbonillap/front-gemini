@@ -55,6 +55,7 @@ const Exercises = ({ filename }) => {
   }
 
   return (
+    <div><br></br><h3>Ejercicios</h3>
     <div>
       <button className="w-full py-2 text-red-600 border border-red-600 rounded" onClick={() => getNewExercise()}>
           Ejercicios
@@ -76,6 +77,7 @@ const Exercises = ({ filename }) => {
           </div> : <div></div>
           }
         </div>
+    </div>
     </div>
   );
 }

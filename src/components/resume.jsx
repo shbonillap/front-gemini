@@ -12,8 +12,7 @@ const Resume = ({ filename }) => {
     useEffect(() => {
         if(localStorage.getItem(filename) && !viewmore){
             setResume(localStorage.getItem(filename))
-            localStorage.setItem(filename, response.data);
-
+            // localStorage.setItem(filename, response.data);
         }
         else{
             if (filename && !viewmore) {
@@ -79,6 +78,7 @@ const Resume = ({ filename }) => {
         };
 
     return (
+        <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Summary</p><hr></hr>
         <div>
             <div style={{ float: "right", display:"inline-block" }}>
                 <button
@@ -112,6 +112,7 @@ const Resume = ({ filename }) => {
                 {resume}
             </div>
             <input type='button' ></input>
+        </div>
         </div>
     );
 }
