@@ -65,6 +65,9 @@ const showResume = () => {
   setResume(true);
   setExercises(false);
   setExam(false);
+  return(
+    <Resume filename={localStorage.getItem("file")}/>
+  )
 }
 const showExercises = () => {
   setResume(false);
@@ -110,7 +113,6 @@ const hideAll = () =>{
         <path strokeLinecap="round" strokeLinejoin="round" 
         strokeWidth="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
       </svg>
-
         Overview
       </button>
     </li>
@@ -175,8 +177,8 @@ const hideAll = () =>{
     ) : (
       <div>
         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-        {resume && <div><br></br><h1>Resumen</h1><Resume filename={filename} /></div>}
-        {exercises && <div><br></br><h1>Ejercicios</h1><Exercises filename={filename} /><p></p></div>}
+        {resume && <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Summary</p><hr></hr><Resume filename={filename} /></div>}
+        {exercises && <div><br></br><h3>Ejercicios</h3><Exercises filename={filename} /><p></p></div>}
         {exam && <div><br></br><h1>Examen</h1><Exam filename={filename} /><p>Cargando ejercicios....</p></div>}
       </div>
     )}
