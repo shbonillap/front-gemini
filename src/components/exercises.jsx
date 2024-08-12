@@ -15,7 +15,6 @@ const Exercises = ({ filename }) => {
         setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado)
       }else{
         fetchExercise();
-
       }
     }
   }, [filename]);
@@ -28,7 +27,8 @@ const Exercises = ({ filename }) => {
       .then((response) => {
         // const md = new MarkdownIt();
         // const result = md.render(response.data.pregunta[0]);
-        setExerciseContent(response.data.pregunta[0].enunciado); // Actualiza el estado con el contenido renderizado
+        renderMarkdown(response.data.pregunta[0].enunciado)
+        //setExerciseContent(response.data.pregunta[0].enunciado); // Actualiza el estado con el contenido renderizado
         setLoading(false);
         setResponse(false)
         localStorage.setItem("exercise", JSON.stringify(response.data.pregunta[0]));
@@ -46,9 +46,16 @@ const Exercises = ({ filename }) => {
   const handleCheckAllAnswers = () => {
     setResponse(true);
     setLoading(true);
-    setExerciseContent(JSON.parse(localStorage.getItem("exercise")).respuesta)
+    renderMarkdown(JSON.parse(localStorage.getItem("exercise")).respuesta);
+    //setExerciseContent(JSON.parse(localStorage.getItem("exercise")).respuesta);
     setLoading(false);
 
+  };
+
+  const renderMarkdown = (markdownText) => {
+    const md = new MarkdownIt();
+    const result = md.render(markdownText);
+    setExerciseContent(result); // Actualiza el estado con el contenido renderizado
   };
 
 

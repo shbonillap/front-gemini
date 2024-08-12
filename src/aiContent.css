@@ -6,7 +6,7 @@
     margin-bottom: 1rem;
 }
 
-.ai-content ul{
+.ai-content ul, .ai-content ol{
     margin-left: 1rem;
     margin-bottom: 1rem;
 }
