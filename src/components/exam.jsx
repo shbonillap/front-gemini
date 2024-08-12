@@ -107,7 +107,7 @@ const Exam = ({ filename }) => {
   };
 
   return (
-      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Tests</p><hr></hr>          
+      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exams</p><hr></hr>          
       <div className="flex mt-4 justify-end mb-4">
         {grade != undefined ?
           <span className={"text-4xl mr-5 " + (grade < 5 ? 'text-red-600' : 'text-green-600')}>
