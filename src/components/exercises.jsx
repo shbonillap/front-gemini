@@ -56,11 +56,15 @@ const Exercises = ({ filename }) => {
     <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>    
     <div>
       <div className="flex mt-4 justify-end mb-4">
-        <button disabled={response}
-          className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
+        <button
+          className={
+            "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
+            ((response) || (isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
+          disabled={(response) || (isLoading)}
+
           onClick={handleCheckAllAnswers}
         >
-          Hide answer
+          Show answer
         </button>
         <button
           className="py-2 px-4 text-white bg-customGreen border-green-600 rounded hover:bg-green-800 hover:border-green-950"
