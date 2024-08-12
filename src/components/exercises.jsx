@@ -40,14 +40,21 @@ const Exercises = ({ filename }) => {
   };
 
   return (
-    <div><br></br><h3>Ejercicios</h3>
+    <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>    
     <div>
-      <button
-        className="w-full py-2 text-red-600 border border-red-600 rounded"
-        onClick={getNewExercise}
-      >
-        Ejercicios
-      </button>
+      <div className="flex mt-4 justify-end mb-4">
+        <button
+          className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
+        >
+          Hide answer
+        </button>
+        <button
+          className="py-2 px-4 text-white bg-customGreen border-green-600 rounded hover:bg-green-800 hover:border-green-950"
+          onClick={getNewExercise}
+          >
+          New Exercises
+        </button>
+      </div>
       <div className="response">
         {isLoading ? (
           <Skeleton />

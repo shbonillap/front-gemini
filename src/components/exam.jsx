@@ -1,16 +1,50 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Skeleton from "./skeleton";
 
 const Exam = ({ filename }) => {
   const [exam, setExam] = useState([]);
   const [getExam, setGetExam] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [results, setResults] = useState({});
+  const [isLoading, setLoading] = useState(false); 
+  
+
+
+  useEffect(() => {    
+    if(localStorage.getItem("exam")){
+      const storedExam = JSON.parse(localStorage.getItem("exam"));
+      setExam(storedExam);
+      setGetExam(true);
+      setLoading(false);
+    } else {
+      setSelectedAnswers({});
+      setResults({});
+      setGetExam(false);
+      setLoading(true);
+  
+      if (filename) {
+        axios
+          .get(`http://localhost:3000/exam/${filename}`)
+          .then((response) => {
+            setExam(response.data.preguntas);
+            localStorage.setItem("exam", JSON.stringify(response.data.preguntas));
+            setGetExam(true);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false); // Asegúrate de desactivar la carga en caso de error
+          });
+      }
+    }
+  }, [filename]);
 
   const generateExam = () => {
     setSelectedAnswers({});
     setResults({});
     setGetExam(false);
+    setLoading(true);
 
     if (filename) {
       console.log("Realizando examen");
@@ -22,9 +56,11 @@ const Exam = ({ filename }) => {
           setExam(response.data.preguntas);
           localStorage.setItem("exam", JSON.stringify(response.data.preguntas));
           setGetExam(true);
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
+          setLoading(false); // Asegúrate de desactivar la carga en caso de error
         });
     }
   };
@@ -65,10 +101,8 @@ const Exam = ({ filename }) => {
   };
 
   return (
-    <div>
-      <br />
-      <h1>Tests</h1>
-      <div className="flex justify-end mb-4">
+      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>          
+      <div className="flex mt-4 justify-end mb-4">
         <button
           className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
           onClick={handleCheckAllAnswers}
@@ -82,9 +116,13 @@ const Exam = ({ filename }) => {
           New test
         </button>
       </div>
-      {getExam && (
+      {console.log('eeeeee', getExam)}
+      {console.log('aaaaaa', exam)}
+      {isLoading ? (
+        <Skeleton />
+      ) : getExam && exam != [] ? (
         <div>
-          {exam.length > 0 ? (
+          {exam?.length > 0 ? (
             exam.map((question, index) => (
               <div key={index} className="mt-5 mb-6 p-4 border border-gray-200 rounded-lg">
                 <h2 className="font-bold text-lg">{index + 1}. {question.enunciado}</h2>
@@ -144,6 +182,8 @@ const Exam = ({ filename }) => {
             <p>Cargando examen...</p>
           )}
         </div>
+      ) : (
+        <p>No exam available.</p>
       )}
     </div>
   );
