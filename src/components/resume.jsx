@@ -9,68 +9,68 @@ const Resume = ({ filename }) => {
     const [resume, setResume] = useState("");
     const [viewmore, setViewmore] = useState(false);
     const [isLoading, setLoading] = useState(false); // Estado para gestionar la carga
-    
+
     useEffect(() => {
         if (filename) {
             setLoading(true);
-        if(localStorage.getItem(filename) && !viewmore){
-            renderMarkdown(localStorage.getItem(filename));
-            setLoading(false);
-            // localStorage.setItem(filename, response.data);
-        }
-        else{
-            if (filename && !viewmore) {
-                setLoading(true);
-                axios
-                    .get(`http://localhost:3000/resume/${filename}`)
-                    .then((response) => {
-                        renderMarkdown(response.data);
-                        localStorage.setItem(filename, response.data);
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-    
+            if (localStorage.getItem(filename) && !viewmore) {
+                renderMarkdown(localStorage.getItem(filename));
+                setLoading(false);
+                // localStorage.setItem(filename, response.data);
             }
-            if (viewmore) {
-                setLoading(true);
-                let aux = localStorage.getItem(filename);
-                aux = aux.replaceAll("*","");
-                aux = aux.replaceAll("#","");
-                aux = utf8.encode(aux);
+            else {
+                if (filename && !viewmore) {
+                    setLoading(true);
+                    axios
+                        .get(`http://localhost:3000/resume/${filename}`)
+                        .then((response) => {
+                            renderMarkdown(response.data);
+                            localStorage.setItem(filename, response.data);
+                            setLoading(false);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
 
-                axios
-                    .get(`http://localhost:3000/extendResume/${filename}/${aux}`)
-                    .then((response) => {
-                        renderMarkdown(response.data);
-                        localStorage.setItem(filename, response.data);
-                        setLoading(false);
-                        setViewmore(false);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                }
+                if (viewmore) {
+                    setLoading(true);
+                    let aux = localStorage.getItem(filename);
+                    aux = aux.replaceAll("*", "");
+                    aux = aux.replaceAll("#", "");
+                    aux = utf8.encode(aux);
+
+                    axios
+                        .get(`http://localhost:3000/extendResume/${filename}/${aux}`)
+                        .then((response) => {
+                            renderMarkdown(response.data);
+                            localStorage.setItem(filename, response.data);
+                            setLoading(false);
+                            setViewmore(false);
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                }
             }
         }
-    }
     }, [filename, viewmore]);
 
-const newSummary = () =>{
-    setLoading(true);
-    if (filename) {
-        axios
-            .get(`http://localhost:3000/resume/${filename}`)
-            .then((response) => {
-                renderMarkdown(response.data);
-                setLoading(false);
-                localStorage.setItem(filename, response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const newSummary = () => {
+        setLoading(true);
+        if (filename) {
+            axios
+                .get(`http://localhost:3000/resume/${filename}`)
+                .then((response) => {
+                    renderMarkdown(response.data);
+                    setLoading(false);
+                    localStorage.setItem(filename, response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
-}
 
 
     const renderMarkdown = (markdownText) => {
@@ -145,7 +145,7 @@ const newSummary = () =>{
             </div>
         </div>
     );
-    
+
 }
 
 export default Resume;

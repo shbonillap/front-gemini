@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Skeleton = () => {
-    return(
+    return (
         <div className="animate-pulse flex space-x-4">
             <div className="flex-1 space-y-2 py-6">
                 <div className="h-4 bg-slate-300 rounded"></div>

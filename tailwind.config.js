@@ -7,9 +7,9 @@ module.exports = {
       spacing: {
         '5p': '5%',   // margin-left: 5%
         '10p': '10%', // margin-left: 10%
-        '25p':'25%',
+        '25p': '25%',
       },
-      colors:{
+      colors: {
         customGreen: '#047857',
       },
       width: {

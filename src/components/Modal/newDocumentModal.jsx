@@ -23,9 +23,9 @@ const NewDocumentModal = ({ isOpen, onClose, uploadFile }) => {
         onClose(); // Cerrar el modal después de enviar
       } else {
         setErrorMessage("Please enter a title.");
-    }
+      }
     } else {
-        setErrorMessage("Please select a file.");
+      setErrorMessage("Please select a file.");
 
 
 

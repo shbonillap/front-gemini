@@ -2,14 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-.ai-content p{
+.ai-content p {
     margin-bottom: 1rem;
 }
 
-.ai-content ul, .ai-content ol{
+.ai-content ul,
+.ai-content ol {
     margin-left: 1rem;
     margin-bottom: 1rem;
 }
-.ai-content li{
+
+.ai-content li {
     list-style: disc;
 }

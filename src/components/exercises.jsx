@@ -14,9 +14,9 @@ const Exercises = ({ filename }) => {
 
   useEffect(() => {
     if (filename) {
-      if(localStorage.getItem("exercise")){
+      if (localStorage.getItem("exercise")) {
         setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado);
-      }else{
+      } else {
         fetchExercise();
       }
     }
@@ -59,43 +59,43 @@ const Exercises = ({ filename }) => {
 
 
   return (
-    <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>    
-    <div>
-      <div className="flex mt-4 justify-end mb-4">
-        <button
-          className={
-            "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
-            ((showAnswer || isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
-          disabled={(showAnswer || isLoading)}
-          onClick={handleCheckAllAnswers}
-        >
-          Show answer
-        </button>
-        <button
-          className="py-2 px-4 text-white bg-customGreen border-green-600 rounded hover:bg-green-800 hover:border-green-950"
-          onClick={getNewExercise}
+    <div><p style={{ fontWeight: "bold", fontSize: "30px" }}>Exercises</p><hr></hr>
+      <div>
+        <div className="flex mt-4 justify-end mb-4">
+          <button
+            className={
+              "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
+              ((showAnswer || isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
+            disabled={(showAnswer || isLoading)}
+            onClick={handleCheckAllAnswers}
           >
-          New Exercises
-        </button>
+            Show answer
+          </button>
+          <button
+            className="py-2 px-4 text-white bg-customGreen border-green-600 rounded hover:bg-green-800 hover:border-green-950"
+            onClick={getNewExercise}
+          >
+            New Exercises
+          </button>
+        </div>
+        <div className="content">
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <div>
+              <h2 className="text-2xl">Question:</h2>
+              <div className="ai-content mb-4" dangerouslySetInnerHTML={{ __html: exerciseContent }} />
+              {
+                showAnswer &&
+                <div>
+                  <h2 className="text-2xl">Answer:</h2>
+                  <div className="ai-content" dangerouslySetInnerHTML={{ __html: solutionContent }} />
+                </div>
+              }
+            </div>
+          )}
+        </div>
       </div>
-      <div className="content">
-        {isLoading ? (
-          <Skeleton />
-        ) : (
-          <div>
-            <h2 className="text-2xl">Question:</h2>
-            <div className="ai-content mb-4" dangerouslySetInnerHTML={{ __html: exerciseContent }} />
-            {
-              showAnswer && 
-              <div>
-                <h2 className="text-2xl">Answer:</h2>
-                <div className="ai-content" dangerouslySetInnerHTML={{ __html: solutionContent }} />
-              </div>
-            }
-          </div>
-        )}
-      </div>
-    </div>
     </div>
   );
 };

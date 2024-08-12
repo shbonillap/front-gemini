@@ -9,11 +9,11 @@ const Exam = ({ filename }) => {
   const [results, setResults] = useState({});
   const [grade, setGrade] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
-  
 
 
-  useEffect(() => {    
-    if(localStorage.getItem("exam")){
+
+  useEffect(() => {
+    if (localStorage.getItem("exam")) {
       const storedExam = JSON.parse(localStorage.getItem("exam"));
       setExam(storedExam);
       setGetExam(true);
@@ -23,7 +23,7 @@ const Exam = ({ filename }) => {
       setResults({});
       setGetExam(false);
       setLoading(true);
-  
+
       if (filename) {
         axios
           .get(`http://localhost:3000/exam/${filename}`)
@@ -103,12 +103,12 @@ const Exam = ({ filename }) => {
   };
 
   return (
-      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exam</p><hr></hr>          
+    <div><p style={{ fontWeight: "bold", fontSize: "30px" }}>Exam</p><hr></hr>
       <div className="flex mt-4 justify-end mb-4">
         {grade != undefined ?
           <span className={"text-4xl mr-5 " + (grade < 5 ? 'text-red-600' : 'text-green-600')}>
             {grade} / 10
-          </span> : '' }
+          </span> : ''}
         <button
           className={
             "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
