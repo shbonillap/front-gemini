@@ -34,9 +34,13 @@ const Resume = ({ filename }) => {
             }
             if (viewmore) {
                 setLoading(true);
+                console.log(localStorage.getItem(filename))
                 axios
-                    .get(`http://localhost:3000/resume/${filename}/${localStorage.getItem(filename)}`)
+                    .get(`http://localhost:3000/extendResume/${filename}/${localStorage.getItem(filename)}`)
                     .then((response) => {
+                        renderMarkdown(response.data);
+                        localStorage.setItem(filename, response.data);
+                        setLoading(false);
                         console.log(response.data)
                     })
                     .catch((error) => {
@@ -49,7 +53,7 @@ const Resume = ({ filename }) => {
 
 const newSummary = () =>{
     setLoading(true);
-    if (filename && !viewmore) {
+    if (filename) {
         axios
             .get(`http://localhost:3000/resume/${filename}`)
             .then((response) => {
@@ -60,16 +64,6 @@ const newSummary = () =>{
                 console.log(error);
             });
 
-    }
-    if (viewmore) {
-        axios
-            .get(`http://localhost:3000/resume/${filename}/${localStorage.getItem(filename)}`)
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error);
-            });
     }
 }
 
