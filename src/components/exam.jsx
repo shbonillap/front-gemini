@@ -107,11 +107,17 @@ const Exam = ({ filename }) => {
   };
 
   return (
-      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>          
+      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Tests</p><hr></hr>          
       <div className="flex mt-4 justify-end mb-4">
-        <span>{grade != undefined ? grade : ''}</span>
+        {grade != undefined ?
+          <span className={"text-4xl mr-5 " + (grade < 5 ? 'text-red-600' : 'text-green-600')}>
+            {grade} / 10
+          </span> : '' }
         <button
-          className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
+          className={
+            "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
+            ((grade != undefined) || (isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
+          disabled={(grade != undefined) || (isLoading)}
           onClick={handleCheckAllAnswers}
         >
           Evaluate
