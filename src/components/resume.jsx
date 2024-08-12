@@ -1,4 +1,5 @@
 import axios from "axios";
+import utf8 from "utf8";
 import React, { useEffect, useState } from "react";
 import { jsPDF } from "jspdf";
 import MarkdownIt from "markdown-it";
@@ -34,15 +35,18 @@ const Resume = ({ filename }) => {
             }
             if (viewmore) {
                 setLoading(true);
-                console.log(localStorage.getItem(filename))
+                let aux = localStorage.getItem(filename);
+                aux = aux.replaceAll("*","");
+                aux = aux.replaceAll("#","");
+                aux = utf8.encode(aux);
+
                 axios
-                    .get(`http://localhost:3000/extendResume/${filename}/${localStorage.getItem(filename)}`)
+                    .get(`http://localhost:3000/extendResume/${filename}/${aux}`)
                     .then((response) => {
                         renderMarkdown(response.data);
                         localStorage.setItem(filename, response.data);
                         setLoading(false);
                         setViewmore(false);
-                        console.log(response.data)
                     })
                     .catch((error) => {
                         console.log(error);
@@ -65,29 +69,9 @@ const newSummary = () =>{
             .catch((error) => {
                 console.log(error);
             });
-
     }
 }
 
-    const fetchResume = () => {
-        const url = viewmore
-            ? `http://localhost:3000/resume/${filename}/${localStorage.getItem(filename)}`
-            : `http://localhost:3000/resume/${filename}`;
-        
-        axios
-            .get(url)
-            .then((response) => {
-                const content = response.data;
-                setResume(content);
-                localStorage.setItem(filename, content);
-                renderMarkdown(content);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
-    };
 
     const renderMarkdown = (markdownText) => {
         const md = new MarkdownIt();

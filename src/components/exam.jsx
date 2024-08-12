@@ -49,7 +49,6 @@ const Exam = ({ filename }) => {
     setLoading(true);
 
     if (filename) {
-      console.log("Realizando examen");
       axios
         .get(`http://localhost:3000/exam/${filename}`)
         .then((response) => {
@@ -84,7 +83,6 @@ const Exam = ({ filename }) => {
     });
 
     const grade = Object.values(newResults).filter(e => e).length;
-    console.log(grade);
 
     setGrade(grade);
     setResults(newResults);

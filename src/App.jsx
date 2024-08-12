@@ -32,9 +32,7 @@ async function uploadFile(file, name, setFilename, setErrorMessage) {
       }
     );
     if (data) {
-      console.log(data.archivo);
       const filename = data.archivo.originalname;
-      console.log('Archivo subido con éxito:', filename);
       localStorage.setItem("file", filename);
       setFilename(filename);
       setErrorMessage(''); // Reset error message on success
@@ -42,7 +40,7 @@ async function uploadFile(file, name, setFilename, setErrorMessage) {
 
   } catch (error) {
     console.log(error);
-    setErrorMessage('Error al subir el archivo.');
+    setErrorMessage('Error uploading file');
   }
 }
 
@@ -170,8 +168,8 @@ const hideAll = () =>{
     {!filename ? (
       <div style={{ textAlign: "center", marginTop: "25%" }}>
         <p style={{ fontSize: "30px" }}>There is nothing to see here.<br />
-          Upload a document to start using HelpStudy</p>
-        <button onClick={handleOpenModal} className="py-2 text-600 text-white semi-rounded bg-customGreen hover:bg-green-800 hover:border-green-950">
+          Upload a PDF document to start using HelpStudy</p>
+        <button onClick={handleOpenModal} className="py-2 px-4 text-600 text-white semi-rounded bg-customGreen hover:bg-green-800 hover:border-green-950">
           New document
         </button>
       </div>

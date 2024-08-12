@@ -14,7 +14,6 @@ const Exercises = ({ filename }) => {
 
   useEffect(() => {
     if (filename) {
-      console.log("Realizando ejercicios");
       if(localStorage.getItem("exercise")){
         setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado);
       }else{
