@@ -75,7 +75,7 @@ const Exercises = ({ filename }) => {
             className="py-2 px-4 text-white bg-customGreen border-green-600 rounded hover:bg-green-800 hover:border-green-950"
             onClick={getNewExercise}
           >
-            New Exercises
+            New exercise
           </button>
         </div>
         <div className="content">
