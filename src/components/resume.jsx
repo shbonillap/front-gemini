@@ -41,6 +41,7 @@ const Resume = ({ filename }) => {
                         renderMarkdown(response.data);
                         localStorage.setItem(filename, response.data);
                         setLoading(false);
+                        setViewmore(false);
                         console.log(response.data)
                     })
                     .catch((error) => {
