@@ -4,14 +4,19 @@ import React, { useEffect, useState } from "react";
 import Skeleton from "./skeleton";
 
 const Exercises = ({ filename }) => {
+  const [response, setResponse] = useState(false);
   const [exerciseContent, setExerciseContent] = useState(""); // Estado para almacenar el contenido renderizado
   const [isLoading, setLoading] = useState(false); // Estado para gestionar la carga
 
   useEffect(() => {
     if (filename) {
       console.log("Realizando ejercicios");
-      console.log({ filename });
-      fetchExercise();
+      if(localStorage.getItem("exercise")){
+        setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado)
+      }else{
+        fetchExercise();
+
+      }
     }
   }, [filename]);
 
@@ -21,13 +26,12 @@ const Exercises = ({ filename }) => {
     axios
       .get(`http://localhost:3000/exercisebychapter/${filename}`)
       .then((response) => {
-        const md = new MarkdownIt();
-        const result = md.render(response.data);
-
-        setExerciseContent(result); // Actualiza el estado con el contenido renderizado
+        // const md = new MarkdownIt();
+        // const result = md.render(response.data.pregunta[0]);
+        setExerciseContent(response.data.pregunta[0].enunciado); // Actualiza el estado con el contenido renderizado
         setLoading(false);
-
-        localStorage.setItem("exercisebychapter", response.data);
+        setResponse(false)
+        localStorage.setItem("exercise", JSON.stringify(response.data.pregunta[0]));
       })
       .catch((error) => {
         console.log(error);
@@ -39,12 +43,22 @@ const Exercises = ({ filename }) => {
     fetchExercise(); // Reutiliza la función para obtener nuevos ejercicios
   };
 
+  const handleCheckAllAnswers = () => {
+    setResponse(true);
+    setLoading(true);
+    setExerciseContent(JSON.parse(localStorage.getItem("exercise")).respuesta)
+    setLoading(false);
+
+  };
+
+
   return (
     <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>    
     <div>
       <div className="flex mt-4 justify-end mb-4">
-        <button
+        <button disabled={response}
           className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
+          onClick={handleCheckAllAnswers}
         >
           Hide answer
         </button>

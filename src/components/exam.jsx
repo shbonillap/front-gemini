@@ -50,8 +50,6 @@ const Exam = ({ filename }) => {
 
     if (filename) {
       console.log("Realizando examen");
-      console.log(filename);
-
       axios
         .get(`http://localhost:3000/exam/${filename}`)
         .then((response) => {
