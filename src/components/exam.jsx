@@ -141,6 +141,7 @@ const Exam = ({ filename }) => {
                       <input
                         type="radio"
                         name={`question-${index}`}
+                        className="mr-2"
                         value="1"
                         onChange={() => handleAnswerSelect(index, question.respuesta1)}
                         disabled={results.hasOwnProperty(index)}
@@ -153,6 +154,7 @@ const Exam = ({ filename }) => {
                       <input
                         type="radio"
                         name={`question-${index}`}
+                        className="mr-2"
                         value="2"
                         onChange={() => handleAnswerSelect(index, question.respuesta2)}
                         disabled={results.hasOwnProperty(index)}
@@ -165,6 +167,7 @@ const Exam = ({ filename }) => {
                       <input
                         type="radio"
                         name={`question-${index}`}
+                        className="mr-2"
                         value="3"
                         onChange={() => handleAnswerSelect(index, question.respuesta3)}
                         disabled={results.hasOwnProperty(index)}
@@ -177,6 +180,7 @@ const Exam = ({ filename }) => {
                       <input
                         type="radio"
                         name={`question-${index}`}
+                        className="mr-2"
                         value="4"
                         onChange={() => handleAnswerSelect(index, question.respuesta4)}
                         disabled={results.hasOwnProperty(index)}

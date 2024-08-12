@@ -9,7 +9,7 @@ const DocumentDropdown = ({ hideAll, setFilename }) => {
 
 
   const deleteFileLocal = () =>{
-    localStorage.removeItem("file");
+    localStorage.clear();
     setFilename("");
     setIsOpen(false);
     hideAll();
