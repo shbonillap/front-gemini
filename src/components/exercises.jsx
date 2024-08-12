@@ -3,16 +3,20 @@ import MarkdownIt from "markdown-it";
 import React, { useEffect, useState } from "react";
 import Skeleton from "./skeleton";
 
+const QUESTION = 0;
+const SOLUTION = 1;
+
 const Exercises = ({ filename }) => {
-  const [response, setResponse] = useState(false);
   const [exerciseContent, setExerciseContent] = useState(""); // Estado para almacenar el contenido renderizado
+  const [solutionContent, setSolutionContent] = useState(""); // Estado para almacenar el contenido renderizado
+  const [showAnswer, setShowAnswer] = useState(false); // Estado para mostrar u ocultar la respuesta
   const [isLoading, setLoading] = useState(false); // Estado para gestionar la carga
 
   useEffect(() => {
     if (filename) {
       console.log("Realizando ejercicios");
       if(localStorage.getItem("exercise")){
-        setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado)
+        setExerciseContent(JSON.parse(localStorage.getItem("exercise")).enunciado);
       }else{
         fetchExercise();
       }
@@ -25,12 +29,8 @@ const Exercises = ({ filename }) => {
     axios
       .get(`http://localhost:3000/exercisebychapter/${filename}`)
       .then((response) => {
-        // const md = new MarkdownIt();
-        // const result = md.render(response.data.pregunta[0]);
-        renderMarkdown(response.data.pregunta[0].enunciado)
-        //setExerciseContent(response.data.pregunta[0].enunciado); // Actualiza el estado con el contenido renderizado
+        renderMarkdown(response.data.pregunta[0].enunciado, QUESTION);
         setLoading(false);
-        setResponse(false)
         localStorage.setItem("exercise", JSON.stringify(response.data.pregunta[0]));
       })
       .catch((error) => {
@@ -40,22 +40,22 @@ const Exercises = ({ filename }) => {
   };
 
   const getNewExercise = () => {
+    setShowAnswer(false);
     fetchExercise(); // Reutiliza la función para obtener nuevos ejercicios
   };
 
   const handleCheckAllAnswers = () => {
-    setResponse(true);
     setLoading(true);
-    renderMarkdown(JSON.parse(localStorage.getItem("exercise")).respuesta);
-    //setExerciseContent(JSON.parse(localStorage.getItem("exercise")).respuesta);
+    renderMarkdown(JSON.parse(localStorage.getItem("exercise")).respuesta, SOLUTION);
+    setShowAnswer(true);
     setLoading(false);
 
   };
 
-  const renderMarkdown = (markdownText) => {
+  const renderMarkdown = (markdownText, type) => {
     const md = new MarkdownIt();
     const result = md.render(markdownText);
-    setExerciseContent(result); // Actualiza el estado con el contenido renderizado
+    type == QUESTION ? setExerciseContent(result) : setSolutionContent(result); // Actualiza el estado con el contenido renderizado
   };
 
 
@@ -66,9 +66,8 @@ const Exercises = ({ filename }) => {
         <button
           className={
             "py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white" +
-            ((response) || (isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
-          disabled={(response) || (isLoading)}
-
+            ((showAnswer || isLoading) ? 'opacity-50 cursor-not-allowed' : '')}
+          disabled={(showAnswer || isLoading)}
           onClick={handleCheckAllAnswers}
         >
           Show answer
@@ -80,11 +79,21 @@ const Exercises = ({ filename }) => {
           New Exercises
         </button>
       </div>
-      <div className="response">
+      <div className="content">
         {isLoading ? (
           <Skeleton />
         ) : (
-          <div className="ai-content" dangerouslySetInnerHTML={{ __html: exerciseContent }} />
+          <div>
+            <h2 className="text-2xl">Question:</h2>
+            <div className="ai-content mb-4" dangerouslySetInnerHTML={{ __html: exerciseContent }} />
+            {
+              showAnswer && 
+              <div>
+                <h2 className="text-2xl">Answer:</h2>
+                <div className="ai-content" dangerouslySetInnerHTML={{ __html: solutionContent }} />
+              </div>
+            }
+          </div>
         )}
       </div>
     </div>
