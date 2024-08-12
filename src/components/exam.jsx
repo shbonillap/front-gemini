@@ -48,8 +48,6 @@ const Exam = ({ filename }) => {
 
     if (filename) {
       console.log("Realizando examen");
-      console.log(filename);
-
       axios
         .get(`http://localhost:3000/exam/${filename}`)
         .then((response) => {
@@ -101,7 +99,7 @@ const Exam = ({ filename }) => {
   };
 
   return (
-      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>          
+      <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exam</p><hr></hr>          
       <div className="flex mt-4 justify-end mb-4">
         <button
           className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
@@ -116,8 +114,6 @@ const Exam = ({ filename }) => {
           New test
         </button>
       </div>
-      {console.log('eeeeee', getExam)}
-      {console.log('aaaaaa', exam)}
       {isLoading ? (
         <Skeleton />
       ) : getExam && exam != [] ? (
