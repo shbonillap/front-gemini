@@ -57,7 +57,8 @@ const newSummary = () =>{
         axios
             .get(`http://localhost:3000/resume/${filename}`)
             .then((response) => {
-                setResume(response.data);
+                renderMarkdown(response.data);
+                setLoading(false);
                 localStorage.setItem(filename, response.data);
             })
             .catch((error) => {
