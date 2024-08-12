@@ -7,7 +7,8 @@ const Exam = ({ filename }) => {
   const [getExam, setGetExam] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [results, setResults] = useState({});
-  const [isLoading, setLoading] = useState(false); 
+  const [grade, setGrade] = useState(undefined);
+  const [isLoading, setLoading] = useState(false);
   
 
 
@@ -43,6 +44,7 @@ const Exam = ({ filename }) => {
   const generateExam = () => {
     setSelectedAnswers({});
     setResults({});
+    setGrade(undefined);
     setGetExam(false);
     setLoading(true);
 
@@ -83,6 +85,10 @@ const Exam = ({ filename }) => {
       newResults[index] = userAnswer === correctAnswer;
     });
 
+    const grade = Object.values(newResults).filter(e => e).length;
+    console.log(grade);
+
+    setGrade(grade);
     setResults(newResults);
   };
 
@@ -103,6 +109,7 @@ const Exam = ({ filename }) => {
   return (
       <div><p style={{fontWeight:"bold", fontSize:"30px"}}>Exercises</p><hr></hr>          
       <div className="flex mt-4 justify-end mb-4">
+        <span>{grade != undefined ? grade : ''}</span>
         <button
           className="py-2 px-4 mr-2 text-customGreen bg-gray-100 border border-customGreen rounded hover:bg-white"
           onClick={handleCheckAllAnswers}
@@ -116,8 +123,6 @@ const Exam = ({ filename }) => {
           New test
         </button>
       </div>
-      {console.log('eeeeee', getExam)}
-      {console.log('aaaaaa', exam)}
       {isLoading ? (
         <Skeleton />
       ) : getExam && exam != [] ? (
