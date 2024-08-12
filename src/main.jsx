@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
 import Login from './login.jsx';
 import './index.css';
+import './aiContent.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>

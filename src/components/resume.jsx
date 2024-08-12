@@ -155,7 +155,7 @@ const newSummary = () =>{
                 {isLoading ? (
                     <Skeleton />
                 ) : (
-                    <div dangerouslySetInnerHTML={{ __html: resume }} />
+                    <div className="ai-content" dangerouslySetInnerHTML={{ __html: resume }} />
                 )}
             </div>
         </div>

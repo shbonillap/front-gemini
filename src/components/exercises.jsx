@@ -73,7 +73,7 @@ const Exercises = ({ filename }) => {
         {isLoading ? (
           <Skeleton />
         ) : (
-          <div dangerouslySetInnerHTML={{ __html: exerciseContent }} />
+          <div className="ai-content" dangerouslySetInnerHTML={{ __html: exerciseContent }} />
         )}
       </div>
     </div>

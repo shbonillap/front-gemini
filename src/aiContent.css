@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ai-content p{
+    margin-bottom: 1rem;
+}
+
+.ai-content ul{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+.ai-content li{
+    list-style: disc;
+}
